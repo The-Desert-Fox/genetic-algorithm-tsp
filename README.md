@@ -1,1 +1,2 @@
-Genetic Algorithm in Lisp (Currently unfinished)
+## Genetic Algorithm in Lisp
+	Very simple implementation with even worse code oops
