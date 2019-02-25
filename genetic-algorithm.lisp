@@ -40,25 +40,24 @@
 					collect (nth y mom)))))
 (defun mutate (path)
 	(if (> 20 (random 100))
-		(list (first path)
-					(loop for x in path 
-								collect (if (= 0 x) 1
-													(- x 1))))
+		(loop for x in path 
+					collect (if (= 0 x) 1
+										(- x 1)))
 		path))
 (defun mutation (population)
 	(let ((parents 
 					(loop for path in (remove nil population) 
-								collect (second path)))
+								collect (second path))))
 		(loop for x in population 
 					collect (if x x
 						(let* ((dad (random-index parents))
 									 (mom (random-index parents))
 									 (son (mutate (crossover dad mom))))
-							(list (cost (distance son)) son)))))))
+							(list (cost (distance son)) son))))))
 (defun solve (population generation)
 	(if (> generation 0)
-		(solve (sort (mutation (selection population)) #'< #'first) (1- generation))
-		(let* ((final (first (sort (mutation (selection population)) #'< #'first))) 
+		(solve (sort (mutation (selection population)) #'< :key #'first) (1- generation))
+		(let* ((final (first (sort (mutation (selection population)) #'< :key #'first))) 
 					 (cost (first final)) 
 					 (solution (second final)))
 			(princ "Cost: ")
